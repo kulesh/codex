@@ -70,6 +70,7 @@ pub const GPT_5_CODEX_MEDIUM_MODEL: &str = "gpt-5-codex";
 pub(crate) const PROJECT_DOC_MAX_BYTES: usize = 32 * 1024; // 32 KiB
 
 pub(crate) const CONFIG_TOML_FILE: &str = "config.toml";
+const CODEX_DIR_NAME: &str = ".codex";
 
 /// Application configuration loaded from disk and merged with overrides.
 #[derive(Debug, Clone, PartialEq)]
@@ -1456,7 +1457,7 @@ pub fn find_codex_home() -> std::io::Result<PathBuf> {
         && !val.is_empty()
     {
         let mut p = PathBuf::from(val);
-        p.push(".codex");
+        p.push(CODEX_DIR_NAME);
         return Ok(p);
     }
 
@@ -1466,7 +1467,7 @@ pub fn find_codex_home() -> std::io::Result<PathBuf> {
             "Could not find home directory",
         )
     })?;
-    p.push(".codex");
+    p.push(CODEX_DIR_NAME);
     Ok(p)
 }
 
